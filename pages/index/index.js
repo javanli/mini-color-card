@@ -1,50 +1,53 @@
 //index.js
 //获取应用实例
 import ColorThief from '../../utils/color-thief.js'
+import {
+  rgbToHex
+} from '../../utils/util.js'
 const app = getApp()
 
 Page({
   data: {
     motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    imgPath: null,
+    colors: null
   },
   chooseImg: function() {
-    // let ctx = wx.createCanvasContext('imageHandler');
-    // console.log('ctx', ctx);
-    // ctx.setFillStyle('red')
-    // ctx.fillRect(0, 0, 100, 100)
-    // // ctx.drawImage(imgPath,0,0,width,height);
-    // // ctx.clearRect(0,0,width,height);
-    // ctx.draw(false, () => {
-    //   console.log('draw end');
-    //   wx.canvasGetImageData({
-    //     canvasId: 'imageHandler',
-    //     x: 0,
-    //     y: 0,
-    //     width: 100,
-    //     height: 100,
-    //     success(res) {
-    //       console.log('getImgData', res);
-    //     }
-    //   });
-    // });
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
-      success:(res) => {
-        console.log('chooseimg',res)
+      success: (res) => {
+        console.log('chooseimg', res)
+        this.setData({
+          imgPath: res.tempFilePaths[0]
+        })
         wx.getImageInfo({
           src: res.tempFilePaths[0],
           success: (imgInfo) => {
             console.log('imgInfo', imgInfo);
-            let { width, height, imgPath} = imgInfo;
-            let colorCount = 5;
+            let {
+              width,
+              height,
+              imgPath
+            } = imgInfo;
+            let colorCount = 10;
             let quality = 10;
-            this.colorThief.getPalette({ width, height, imgPath: res.tempFilePaths[0], componentInstance:this},(colors)=>{
-              console.log('colors',colors);
+            this.colorThief.getPalette({
+              width,
+              height,
+              imgPath: res.tempFilePaths[0],
+              colorCount,
+              quality,
+              componentInstance: this
+            }, (colors) => {
+              console.log('colors', colors);
+              colors = colors.map((color) => {
+                return rgbToHex(color[0],color[1],color[2])
+              })
+              this.setData({
+                colors
+              })
             });
           }
         })
@@ -57,15 +60,7 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function() {
     this.colorThief = new ColorThief('imageHandler');
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   }
 })
