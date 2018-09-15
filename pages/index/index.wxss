@@ -1,21 +1,55 @@
 /**index.wxss**/
-.img-container {
-  width: 750rpx;
-  height: 750rpx;
-}
-.img-container image {
- max-width: 100%;
-    max-height: 100%;
-}
-.colors-container {
-  width: 100%;
-  height: 20px;
+
+.img-placeholder {
+  margin-top: 40rpx;
+  background-color: #1296db;
+  border-radius: 6px;
+  width: 480rpx;
+  height: 480rpx;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
 }
+
+.icon-add {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.colors-container {
+  max-width: 80%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40rpx;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
 .colors-container .color {
   flex: 1;
+  max-width: 40px;
+  height: 100%;
 }
-.usermotto {
-  position: absolute;
-  bottom: 20px;
+#image-handler {
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+  margin-top: 40rpx;
+}
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+  margin-top: 40rpx;
+}
+.primary-button {
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+  padding: 5px 10px;
+  background-color: #1296db;
+  color: white;
 }

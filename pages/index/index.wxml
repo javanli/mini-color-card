@@ -1,15 +1,15 @@
 <!--index.wxml-->
 <view class="container">
-  <view class='img-container'>
-    <image wx:if="{{imgPath}}" src='{{imgPath}}' mode='aspectFit'></image>
+  <!-- <image wx:if="{{imgPath}}" src='{{imgPath}}' mode='widthFix' class='target'></image> -->
+  <view wx:if="{{!imgPath}}" class='img-placeholder' bindtap='chooseImg'>
+    <image class='icon-add' src='/res/add.svg'></image>
   </view>
-  <view class='colors-container'>
-  <view wx:for="{{colors}}" class='color' style='{{"background-color:#"+item}}'></view>
+  <canvas wx:if="{{imgPath}}" id='image-handler' style='{{"width:"+canvasWidth+"px;height:"+canvasHeight+"px;"}}' canvas-id="imageHandler"></canvas>
+  <view class='colors-container' style='{{"width:"+colors.length * 40 + "px;"}}'>
+    <view wx:for="{{colors}}" wx:key="{{item}}" class='color' style='{{"background-color:"+item}}'></view>
   </view>
-  <view class="usermotto" bindtap='chooseImg'>
-    <text class="user-motto">{{motto}}</text>
-  </view>
-  <view style='opacity:0;'>
-    <canvas style='width:100px;height:100px;' canvas-id="imageHandler"></canvas>
+  <view wx:if="{{imgPath}}" class='button-container'>
+    <view class='primary-button' bindtap='save'>保存</view>
+    <view class='primary-button' bindtap='edit'>调色</view>
   </view>
 </view>

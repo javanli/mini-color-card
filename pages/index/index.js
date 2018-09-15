@@ -10,7 +10,9 @@ Page({
   data: {
     motto: 'Hello World',
     imgPath: null,
-    colors: null
+    colors: ['#F00','#0F0','#00F'],
+    imgInfo: {},
+    colorCount: 5
   },
   chooseImg: function() {
     wx.chooseImage({
@@ -18,7 +20,6 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: (res) => {
-        console.log('chooseimg', res)
         this.setData({
           imgPath: res.tempFilePaths[0]
         })
@@ -31,23 +32,33 @@ Page({
               height,
               imgPath
             } = imgInfo;
-            let colorCount = 10;
-            let quality = 10;
+            let scale = 0.8*this.screenWidth/Math.max(width,height);
+            let canvasWidth = Math.floor(scale * width);
+            let canvasHeight = Math.floor(scale * height);
+            this.setData({
+              imgInfo,
+              canvasScale:scale,
+              canvasWidth,
+              canvasHeight
+            });
+            let quality = 1;
+            console.log(quality);
             this.colorThief.getPalette({
-              width,
-              height,
+              width:canvasWidth,
+              height: canvasHeight,
               imgPath: res.tempFilePaths[0],
-              colorCount,
-              quality,
-              componentInstance: this
+              colorCount:this.data.colorCount,
+              quality
             }, (colors) => {
               console.log('colors', colors);
-              colors = colors.map((color) => {
-                return rgbToHex(color[0],color[1],color[2])
-              })
-              this.setData({
-                colors
-              })
+              if (colors) {
+                colors = colors.map((color) => {
+                  return ('#' + rgbToHex(color[0], color[1], color[2]))
+                })
+                this.setData({
+                  colors
+                })
+              }
             });
           }
         })
@@ -62,5 +73,18 @@ Page({
   },
   onLoad: function() {
     this.colorThief = new ColorThief('imageHandler');
+    wx.getSystemInfo({
+      success:({screenWidth})=>{
+        this.screenWidth = screenWidth;
+      }
+    })
+  },
+  save: function() {
+
+  },
+  edit: function() {
+    // wx.navigateTo({
+    //   url: 'pages/',
+    // })
   }
 })

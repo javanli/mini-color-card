@@ -2,10 +2,9 @@ class ColorThief{
   constructor(canvasID) {
     this.canvasID = canvasID;
   }
-  getPalette = ({ width, height, imgPath, colorCount, quality, componentInstance},cb) => {
-    console.log(componentInstance)
+  getPalette = ({ width, height, imgPath, colorCount, quality},cb) => {
     if (typeof colorCount === 'undefined' || colorCount < 2 || colorCount > 256) {
-      colorCount = 5;
+      colorCount = 10;
     }
     if (typeof quality === 'undefined' || quality < 1) {
       quality = 10;
@@ -49,7 +48,7 @@ class ColorThief{
           var palette = cmap ? cmap.palette() : null;
           cb(palette);
         }
-      },componentInstance)
+      })
     })
 
 
