@@ -2,17 +2,28 @@
 //获取应用实例
 import ColorThief from '../../utils/color-thief.js'
 import {
-  rgbToHex
+  rgbToHex,
+  uuid,
+  colorsEqual
 } from '../../utils/util.js'
 const app = getApp()
-
+const STATE_EMPTY = 0;
+const STATE_LOADING = 1;
+const STATE_SUCCEED = 2;
 Page({
   data: {
     motto: 'Hello World',
     imgPath: null,
-    colors: ['#F00','#0F0','#00F'],
+    colors: [
+      "#153641",
+      "#22556E",
+      "#4799B7",
+      "#6DB3BF",
+      "#94CFC9"
+    ],
     imgInfo: {},
-    colorCount: 5
+    colorCount: 5,
+    state: STATE_EMPTY
   },
   chooseImg: function() {
     wx.chooseImage({
@@ -21,33 +32,33 @@ Page({
       sourceType: ['album', 'camera'],
       success: (res) => {
         this.setData({
-          imgPath: res.tempFilePaths[0]
+          imgPath: res.tempFilePaths[0],
+          state: STATE_LOADING
         })
         wx.getImageInfo({
           src: res.tempFilePaths[0],
           success: (imgInfo) => {
-            console.log('imgInfo', imgInfo);
             let {
               width,
               height,
               imgPath
             } = imgInfo;
-            let scale = 0.8*this.screenWidth/Math.max(width,height);
+            let scale = 0.8 * this.screenWidth / Math.max(width, height);
             let canvasWidth = Math.floor(scale * width);
             let canvasHeight = Math.floor(scale * height);
             this.setData({
               imgInfo,
-              canvasScale:scale,
+              canvasScale: scale,
               canvasWidth,
               canvasHeight
             });
             let quality = 1;
             console.log(quality);
             this.colorThief.getPalette({
-              width:canvasWidth,
+              width: canvasWidth,
               height: canvasHeight,
               imgPath: res.tempFilePaths[0],
-              colorCount:this.data.colorCount,
+              colorCount: this.data.colorCount,
               quality
             }, (colors) => {
               console.log('colors', colors);
@@ -56,7 +67,8 @@ Page({
                   return ('#' + rgbToHex(color[0], color[1], color[2]))
                 })
                 this.setData({
-                  colors
+                  colors,
+                  state: STATE_SUCCEED
                 })
               }
             });
@@ -74,13 +86,36 @@ Page({
   onLoad: function() {
     this.colorThief = new ColorThief('imageHandler');
     wx.getSystemInfo({
-      success:({screenWidth})=>{
+      success: ({
+        screenWidth
+      }) => {
         this.screenWidth = screenWidth;
       }
     })
   },
   save: function() {
-
+    let data = wx.getStorageSync('colors') || [];
+    for (let i = 0; i < data.length; i++) {
+      let blendent = data[i];
+      if (colorsEqual(blendent.colors, this.data.colors)) {
+        data.splice(i,1);
+      }
+    }
+    data.unshift({
+      uuid: uuid(),
+      colors: this.data.colors
+    });
+    wx.setStorage({
+      key: 'colors',
+      data: data,
+      complete: () => {
+        console.log('save complete')
+        wx.showToast({
+          title: '保存成功！',
+          icon: 'success'
+        })
+      }
+    })
   },
   edit: function() {
     // wx.navigateTo({

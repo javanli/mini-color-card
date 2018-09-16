@@ -5,10 +5,10 @@
     <image class='icon-add' src='/res/add.svg'></image>
   </view>
   <canvas wx:if="{{imgPath}}" id='image-handler' style='{{"width:"+canvasWidth+"px;height:"+canvasHeight+"px;"}}' canvas-id="imageHandler"></canvas>
-  <view class='colors-container' style='{{"width:"+colors.length * 40 + "px;"}}'>
+  <view wx:if="{{state !== 1}}" class='colors-container' style='{{"width:"+colors.length * 40 + "px;"}}'>
     <view wx:for="{{colors}}" wx:key="{{item}}" class='color' style='{{"background-color:"+item}}'></view>
   </view>
-  <view wx:if="{{imgPath}}" class='button-container'>
+  <view wx:if="{{state !== 1}}" class='button-container'>
     <view class='primary-button' bindtap='save'>保存</view>
     <view class='primary-button' bindtap='edit'>调色</view>
   </view>

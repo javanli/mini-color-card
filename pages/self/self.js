@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    blendents:[]
   },
 
   /**
@@ -26,7 +26,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let data = wx.getStorageSync('colors');
+    wx.getStorage({
+      key: 'colors',
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          blendents: res.data
+        })
 
+      },
+    })
   },
 
   /**

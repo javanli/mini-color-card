@@ -7,3 +7,20 @@ export function toHex(n) {
     + "0123456789ABCDEF".charAt(n % 16);
 }
 
+export function uuid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+export function colorsEqual(colors1,colors2) {
+  if(colors1.length !== colors2.length) {
+    return false;
+  }
+  for(let i = 0;i < colors1.length; i++) {
+    if(colors1[i] !== colors2[i]){
+      return false;
+    }
+  }
+  return true;
+}
