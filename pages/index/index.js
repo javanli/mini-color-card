@@ -98,7 +98,7 @@ Page({
     for (let i = 0; i < data.length; i++) {
       let blendent = data[i];
       if (colorsEqual(blendent.colors, this.data.colors)) {
-        data.splice(i,1);
+        data.splice(i, 1);
       }
     }
     data.unshift({
@@ -118,8 +118,12 @@ Page({
     })
   },
   edit: function() {
-    // wx.navigateTo({
-    //   url: 'pages/',
-    // })
+    console.log('edit')
+    let blendent = {
+      colors: this.data.colors
+    };
+    wx.navigateTo({
+      url: '../edit/edit?blendent='+JSON.stringify(blendent),
+    })
   }
 })

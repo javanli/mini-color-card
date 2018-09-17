@@ -2,16 +2,17 @@
   "pages": [
     "pages/index/index",
     "pages/self/self",
-    "pages/square/square"
+    "pages/square/square",
+    "pages/edit/edit"
   ],
   "tabBar": {
-    "selectedColor":"#1296db",
-    "backgroundColor":"#fff",
+    "selectedColor": "#1296db",
+    "backgroundColor": "#fff",
     "list": [
       {
         "pagePath": "pages/index/index",
         "iconPath": "res/tab-index.png",
-        "selectedIconPath":"res/tab-index-selected.png",
+        "selectedIconPath": "res/tab-index-selected.png",
         "text": "取色"
       },
       {
