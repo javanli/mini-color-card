@@ -1,1 +1,60 @@
 /* pages/edit/edit.wxss */
+.colors-container {
+  max-width: 80%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40rpx;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.colors-container .color {
+  flex: 1;
+  max-width: 40px;
+  height: 100%;
+  position: relative;
+}
+.color.selected {
+  box-shadow: 0px 0px 20px rgba(0,64,128,.55);
+  z-index: 1000;
+}
+.selected-container {
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+  width: 80%;
+  height: 80px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+}
+.square-color {
+  height: 60px;
+  width: 60px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+}
+.slider-container {
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+  width: 80%;
+  height: 80px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+  flex-direction: column;
+  padding: 10px 0;
+}
+.van-slider .van-slider__bar {
+  background-color: red;
+}
+.green .van-slider__bar {
+  background-color: green;
+}
+.blue .van-slider__bar {
+  background-color: blue;
+}

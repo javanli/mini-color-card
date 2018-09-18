@@ -1,2 +1,18 @@
 <!--pages/edit/edit.wxml-->
-<text>pages/edit/edit.wxml</text>
+<view class="container">
+  <view class='colors-container' wx:if="{{blendent.colors}}" style='{{"width:"+blendent.colors.length * 40 + "px;"}}'>
+    <view wx:for="{{blendent.colors}}" wx:key="{{item}}" class="{{'color' + (index === selected ? ' selected' : '')}}" style='{{"background-color:"+item}}' bindtap='onColorSelected' data-index="{{index}}"></view>
+  </view>
+  <view class='selected-container'>
+    <view class='square-color' style='{{"background-color:"+blendent.colors[selected]}}'></view>
+    <view>
+      <view style='{{"color:"+blendent.colors[selected]}}'>{{blendent.colors[selected]}}</view>
+      <view style='color:#1296db'>{{"R-"+r+" G-"+g+" B-"+b}}</view>
+    </view>
+  </view>
+  <view class="slider-container" wx:if="{{blendent.colors}}">
+    <van-slider custom-class="red" style='width:90%;' value="{{r*100/255}}" bind:change="onChange" data-type="r" min="0" max="100" />
+    <van-slider class='green' style='width:90%;' value="{{g/255*100}}" bind:change="onChange" data-type="g" min="0" max="100" />
+    <van-slider class='yellow' style='width:90%;' value="{{b/255*100}}" bind:change="onChange" data-type="b" min="0" max="100" />
+  </view>
+</view>

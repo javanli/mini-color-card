@@ -1,28 +1,31 @@
 // pages/edit/edit.js
+import {
+  hexToRgb
+} from '../../utils/util.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    blendent:{}
+    blendent:{},
+    selected:0,
+    r:100,
+    g:0,
+    b:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let {blendent} = options;
+    console.log(options)
+    let blendent = JSON.parse(options.blendent);
+    let rgb = hexToRgb(blendent.colors[0]);
+    let {r,g,b} = rgb;
     this.setData({
-      blendent
+      blendent,r,g,b
     });
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
   },
 
   /**
@@ -42,26 +45,15 @@ Page({
       animation: false
     })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  onColorSelected: function(e) {
+    console.log(e)
+    let selected = e.target.dataset.index;
+    let rgb = hexToRgb(this.data.blendent.colors[selected]);
+    let { r, g, b } = rgb;
+    console.log(rgb)
+    this.setData({
+      selected,r,g,b
+    })
   },
 
   /**
@@ -69,5 +61,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  onChange:function(value) {
+    console.log(value)
   }
 })
