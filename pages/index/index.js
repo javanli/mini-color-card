@@ -4,7 +4,8 @@ import ColorThief from '../../utils/color-thief.js'
 import {
   rgbToHex,
   uuid,
-  colorsEqual
+  colorsEqual,
+  saveBlendent
 } from '../../utils/util.js'
 const app = getApp()
 const STATE_EMPTY = 0;
@@ -94,28 +95,7 @@ Page({
     })
   },
   save: function() {
-    let data = wx.getStorageSync('colors') || [];
-    for (let i = 0; i < data.length; i++) {
-      let blendent = data[i];
-      if (colorsEqual(blendent.colors, this.data.colors)) {
-        data.splice(i, 1);
-      }
-    }
-    data.unshift({
-      uuid: uuid(),
-      colors: this.data.colors
-    });
-    wx.setStorage({
-      key: 'colors',
-      data: data,
-      complete: () => {
-        console.log('save complete')
-        wx.showToast({
-          title: '保存成功！',
-          icon: 'success'
-        })
-      }
-    })
+    saveBlendent({colors:this.data.colors});
   },
   edit: function() {
     console.log('edit')

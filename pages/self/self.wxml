@@ -1,6 +1,6 @@
 <!--pages/self/self.wxml-->
 <view class="container">
-  <view wx:for="{{blendents}}" wx:for-item="blendent" wx:key="{{blendent.uuid}}" class='colors-container' style='{{"width:"+blendent.colors.length * 40 + "px;"}}'>
+  <view wx:for="{{blendents}}" wx:for-item="blendent" wx:key="{{blendent.uuid}}" class='colors-container' style='{{"width:"+blendent.colors.length * 40 + "px;"}}' data-blendent="{{blendent}}" bindtap='edit'>
     <view wx:for="{{blendent.colors}}" wx:key="{{item}}" class='color' style='{{"background-color:"+item}}'></view>
   </view>
 </view>

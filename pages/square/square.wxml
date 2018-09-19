@@ -1,6 +1,6 @@
 <!--pages/square/square.wxml-->
 <view class="container">
-  <view wx:for="{{blendents}}" wx:for-item="blendent" wx:key="{{index}}" class='colors-container' style='{{"width:"+blendent.length * 40 + "px;"}}'>
-    <view wx:for="{{blendent}}" wx:key="{{item}}" class='color' style='{{"background-color:"+item}}'></view>
+  <view wx:for="{{blendents}}" wx:for-item="colors" wx:key="{{index}}" class='colors-container' style='{{"width:"+colors.length * 40 + "px;"}}' data-colors="{{colors}}" bindtap='edit'>
+    <view wx:for="{{colors}}" wx:key="{{item}}" class='color' style='{{"background-color:"+item}}'></view>
   </view>
 </view>

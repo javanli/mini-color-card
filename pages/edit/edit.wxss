@@ -49,7 +49,7 @@
   flex-direction: column;
   padding: 10px 0;
 }
-.van-slider .van-slider__bar {
+.red .van-slider__bar{
   background-color: red;
 }
 .green .van-slider__bar {
@@ -57,4 +57,18 @@
 }
 .blue .van-slider__bar {
   background-color: blue;
+}
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+  margin-top: 40rpx;
+}
+.primary-button {
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  border-radius: 6px;
+  padding: 5px 10px;
+  background-color: #1296db;
+  color: white;
 }

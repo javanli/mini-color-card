@@ -14,7 +14,7 @@ export function hexToRgb(hex) {
     b: parseInt(result[3], 16)
   } : null;
 }
-export function uuid() {
+export function genUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
@@ -30,4 +30,37 @@ export function colorsEqual(colors1,colors2) {
     }
   }
   return true;
+}
+export function saveBlendent({colors,uuid}) {
+  let data = wx.getStorageSync('colors') || [];
+  if(!uuid){
+    for (let i = 0; i < data.length; i++) {
+      let blendent = data[i];
+      if (colorsEqual(blendent.colors, colors)) {
+        data.splice(i, 1);
+      }
+    }
+    data.unshift({
+      uuid: genUUID(),
+      colors: colors
+    });
+  }
+  else {
+    let index = data.findIndex(blendent => blendent.uuid === uuid);
+    let blendent = data[index];
+    blendent.colors = colors;
+    data.splice(index,1);
+    data.unshift(blendent);
+  }
+  wx.setStorage({
+    key: 'colors',
+    data: data,
+    complete: () => {
+      console.log('save complete')
+      wx.showToast({
+        title: '保存成功！',
+        icon: 'success'
+      })
+    }
+  })
 }
