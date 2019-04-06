@@ -1,0 +1,15 @@
+{
+  "name": "mini-color-card-master",
+  "version": "1.0.0",
+  "description": "一个微信小程序；提取图片的配色；制作你自己的配色卡。",
+  "main": "app.js",
+  "dependencies": {
+    "vant-weapp": "^0.5.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
